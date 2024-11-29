@@ -77,7 +77,7 @@ def count_chain_reaction(settled):
 
     for i, (brick_a, brick_b) in enumerate(bricks):
         # Prioritize by brick index in supported structure.
-        # This is a topological ordering of the support graph.
+        # This is a topological ordering of the graph of the "supports" relation.
         queue = supports.get(i, [])
         heapq.heapify(queue)
         gone = {i}
@@ -86,9 +86,9 @@ def count_chain_reaction(settled):
             if j in gone:
                 continue
             # Check whether this brick will fall (yet).
-            if all(k in gone for k in supported_by.get(j, [])):
+            if all(k in gone for k in supported_by.get(j, [])):  # "j supported_by k"
                 gone.add(j)
-                for k in supports.get(j, []):
+                for k in supports.get(j, []):  # "j supports k"
                     heapq.heappush(queue, k)
         count[i] = len(gone) - 1
 
