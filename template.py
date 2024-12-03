@@ -13,7 +13,7 @@ from tqdm import tqdm
 
 def main():
     with open(sys.argv[1]) as f:
-        lines = [s.rstrip() for s in f.readlines()]
+        lines = [s.rstrip('\n') for s in f]
 
 
 if __name__ == '__main__':
